@@ -1,0 +1,82 @@
+/* Estilos generales */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+  }
+  
+  /* Estilos del formulario */
+  
+  .form-login {
+    width: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    margin: 50px auto;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+  
+  .form-login h4 {
+    text-align: center;
+    margin: 0 0 20px;
+    font-weight: 600;
+  }
+  
+  .controls {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  .controls:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .buttons {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .buttons:hover {
+    background-color: #3e8e41;
+  }
+  
+  .form-login p {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .form-login p a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  .form-login p a:hover {
+    text-decoration: underline;
+  }
+
+  
+  .error-message {
+    color: red;
+    font-weight: bold;
+  }
+  
+  
+  
+  
+  

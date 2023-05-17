@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Productos</title>
+    <%- include('./plantilla/head'); %>
+</head>
+<body>
+    <div>
+        <%- include('./plantilla/header'); %>
+        <h1><%= title %></h1>
+        
+        <form action="/productos" method="post">
+            <label for="filtro">Filtrar por:</label>
+            <select id="filtro" name="filtro">
+                <option value="Todos">Todos</option>
+                <option value="Camisetas">Camisetas</option>
+                <option value="Pantalones">Pantalones</option>
+                <option value="Chaquetas">Chaquetas</option>
+            </select>
+            <button type="submit">Filtrar</button>
+        </form>
+        
+        <div id="productosContainer">
+            <% productos.forEach(function(producto) { %>
+                <div class="box" style="width: 18rem;">
+                    <img src="<%= producto.imagen %>" class="box-img-top" alt="<%= producto.nombre %>">
+                    <div class="box-body">
+                      <h5 class="box-title"><%= producto.nombre %></h5>
+                      <p class="box-text"><%= producto.precio %> €</p>
+                      <a href="/producto?id=<%= producto.id %>" class="btn btn-primary">Comprar</a>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+        
+        <%- include('./plantilla/footer'); %>
+    </div>
+
+</body>
+</html>

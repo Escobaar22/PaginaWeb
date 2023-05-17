@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Producto</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/producto.css">
+    <%- include('./plantilla/head'); %>
+</head>
+<body>
+    <div>
+        <%- include('./plantilla/header'); %>
+            <img src="<%= producto.imagen %>" class="img" alt="<%= producto.nombre %>">
+            <div>
+                <h3><%= producto.nombre %></h3>
+                <p><%= producto.descripcion %></p>
+                <p class="precio"><%= producto.precio %> €</p>
+                <p></p>
+                <p>
+                    Seleccione una talla:
+                    <br>
+                        <select id="talla">
+                            <option value="xs">XS</option>
+                            <option value="s">S</option>
+                            <option value="m">M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+                        </select>
+                    </br>
+               </p>
+               <button>Añadir al carrito</button>
+            </div>
+        <%- include('./plantilla/footer'); %>
+    </div>
+</body>
+</html>

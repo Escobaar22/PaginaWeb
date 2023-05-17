@@ -1,0 +1,52 @@
+img.img {
+    margin-top: 0px;
+    float: left;
+    width: 450px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+}
+
+div.box-body {
+    overflow: hidden;
+}
+
+h3 {
+    font-size: 24px;
+    margin-top: 100px;
+    font-family: "Arial", sans-serif; /* Cambia "Arial" por la fuente deseada */
+}
+
+p {
+    font-size: 18px;
+    font-family: "Helvetica", sans-serif; /* Cambia "Helvetica" por la fuente deseada */
+}
+
+.precio {
+    font-size: 18px;
+    font-family: "Helvetica", sans-serif;
+    font-weight: bold;
+}
+
+button {
+    display: block;
+    padding: 15px 60px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+button:hover{
+    background-color: #666;
+}
+
+/* Estilo para el desplegable de selección de talla */
+select#talla {
+    margin-top: 7px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

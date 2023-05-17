@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contacto</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/contacto.css">
+    <%- include('./plantilla/head'); %>
+</head>
+<body>
+    <div>
+        <%- include('./plantilla/header'); %>
+        <h1><%= title %></h1>
+        <div class="contact-container">
+            <h1>Contacto</h1>
+            
+            <div class="contact-info">
+                <h2>Atención al cliente</h2>
+                <p><strong>Teléfono:</strong> +123456789</p>
+                <p><strong>Email:</strong> info@empresa.com</p>
+            </div>
+            
+            <div class="map-container">
+                <h2>Ubicación</h2>
+                <div id="map"></div>
+            </div>
+        </div>    
+        <%- include('./plantilla/footer'); %>
+    </div>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyo0Yvd-D5sEM35DCE3zNblqoBamompFY&callback=initMap" async defer></script>
+    <script>
+        function initMap() {
+            var location = {lat: 40.712776, lng: -74.005974}; // Coordenadas de ejemplo, ajusta según tu ubicación
+            
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: location
+            });
+            
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+    </script>
+</body>
+</html>

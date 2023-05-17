@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylesheets/login.css">
+    <script>
+      // Función para ocultar el mensaje de error después de 5 segundos
+      function hideErrorMessage() {
+        var errorMessage = document.getElementById("error-message");
+        if (errorMessage) {
+          setTimeout(function() {
+            errorMessage.style.display = "none";
+          }, 1000);
+        }
+      }
+    </script>
+</head>
+<body onload="hideErrorMessage()">
+    <form method="post" action="/login" class="form-login">
+        <h4>Login</h4>
+        <% if (error) { %>
+          <p id="error-message" class="error-message"><%= error %></p>
+        <% } %>
+        <input class="controls" type="text" name="correo" value="" placeholder="Correo/Usuario">
+        <input class="controls" type="password" name="contrasena" value="" placeholder="Contraseña">
+        <input class="buttons" type="submit" name="" value="Ingresar">
+        <p>¿No tienes cuenta? <a href="/registro">Registrarse</a></p>
+    </form>
+</body>
+</html>

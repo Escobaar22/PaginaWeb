@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Mi carrito</title>
+    <%- include('./plantilla/head'); %>
+    <link rel="stylesheet" type="text/css" href="stylesheets/carrito.css">
+</head>
+<body>
+    <div>
+        <%- include('./plantilla/header'); %>
+        <h1><%= title %></h1>
+        
+        <table>
+            <tr>
+                <th>Producto</th>
+                <th>Imagen</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Eliminar</th>
+            </tr>
+            <tr>
+                <td>Camiseta</td>
+                <td><img src="images/productos/Vans1.jpg" alt="Camiseta"></td>
+                <td>
+                    <button class="decrement">-</button>
+                    <input type="number" value="1" min="1">
+                    <button class="increment">+</button>
+                </td>
+                <td>20 €</td>
+                <td><button class="eliminar">Eliminar</button></td>
+            </tr>
+            <tr class="total">
+                <td colspan="3">Total</td>
+                <td colspan="2">100 €</td>
+            </tr>
+        </table>
+        
+        <button>Realizar Pago</button>
+        <%- include('./plantilla/footer'); %>
+    </div>
+</body>
+</html>
