@@ -2,11 +2,64 @@
 <html lang="en">
 <head>
     <title>Mi Cuenta</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/cuenta.css">
     <%- include('./plantilla/head'); %>
 </head>
 <body>
     <div>
         <%- include('./plantilla/header'); %>
+        
+        <div class="container">
+            <h1>Mi Cuenta</h1>
+            <div>
+                <h2>Información de la cuenta:</h2>
+                <p><h4>Nombre:</h4> <%= nombreUsuario %></p>
+                <p><h4>Correo electrónico:</h4> <%= correoUsuario %></p>
+                <p><h4>Dirección:</h4> <%= direccionUsuario %></p>
+                <p><h4>Número de teléfono:</h4> <%= telefonoUsuario %></p>
+                <p><h4>Fecha de nacimiento:</h4> <%= cumpleanosUsuario %></p>
+            </div>
+
+            <details>
+                <summary>Cambiar contraseña:</summary>
+                <form action="/cuenta" method="POST" class="password-form">
+                    <div class="form-group">
+                        <label for="old-password">Contraseña actual:</label>
+                        <input type="password" id="old-password" name="oldPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">Nueva contraseña:</label>
+                        <input type="password" id="new-password" name="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar contraseña:</label>
+                        <input type="password" id="confirm-password" name="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="submit-button">Cambiar contraseña</button>
+                </form>
+            </details>
+
+            <details>
+                <summary>Cambiar o añadir datos adicionales: </summary>
+                <form action="/cuenta/datos" method="POST" class="additional-data-form">
+                    <div class="form-group">
+                            <label for="address">Dirección:</label>
+                            <input type="text" id="address" name="address" required>
+                    </div>
+                    <div class="form-group">
+                            <label for="phone">Número de teléfono:</label>
+                            <input type="text" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate">Fecha de cumpleaños:</label>
+                        <input type="date" id="birthdate" name="birthdate" required>
+                    </div>
+                    <button type="submit" class="submit-button">Guardar datos adicionales</button>
+                </form>
+            </details>
+            <a href="/logout" class="logout-button">Cerrar sesión</a>
+        </div>
+        
         <%- include('./plantilla/footer'); %>
     </div>
 </body>

@@ -1,0 +1,47 @@
+/*Estilo para el filtro*/
+form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  form label {
+    margin-right: 10px;
+    font-family: "Arial", sans-serif;
+    display: inline-block;
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  form select {
+    margin-right: 10px;
+    font-family: "Arial", sans-serif;
+    appearance: none;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  form select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #888;
+  }
+  
+  form button {
+    background-color: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  form button:hover {
+    background-color: #666;
+  }
+  

@@ -114,12 +114,129 @@ router.post("/registro", async function(req, res, next) {
   }
 });
 
-router.get("/cuenta", function(req, res, next) {
-  res.render("cuenta", { title: "Cuenta", error: null });
+router.get("/cuenta", async function(req, res, next) {
+  try{
+    //Verificar que haya una sesión iniciada
+    if(!req.session.userId){
+      req.session.redirectTo = "/cuenta";
+      //Si no existe una sesión, redireccionar al login
+      res.redirect("/login");
+      return;
+    }
+
+    const connection = await getConnection();
+
+    const[rows, fields] = await connection.execute(
+      "SELECT * FROM usuarios WHERE id = ?",
+      [req.session.userId]
+    );
+
+    await connection.end();
+
+    if (rows.length > 0) {
+      const nombreUsuario = rows[0].nombre;
+      const correoUsuario = rows[0].correo;
+      const direccionUsuario = rows[0].direccion;
+      const telefonoUsuario = rows[0].telefono;
+      const cumpleanosUsuario = rows[0].cumpleanos;
+      const contrasenaUsuario = rows[0].contrasena;
+    res.render("cuenta", { title: "Cuenta", nombreUsuario: nombreUsuario, correoUsuario: correoUsuario, direccionUsuario: direccionUsuario, 
+     telefonoUsuario: telefonoUsuario, cumpleanosUsuario:cumpleanosUsuario, contrasenaUsuario:contrasenaUsuario,  error: null });
+    } else {
+      res.send("Usuario no encontrado");
+    }
+  }
+  catch (error) {
+    console.log(error);
+    res.send("Error al cargar la página de la cuenta");
+  }
 });
 
+router.post("/cuenta", async function(req, res, next){
+  try {
+    // Obtén los valores enviados desde el formulario
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
+    const confirmPassword = req.body.confirmPassword;
 
+    // Establecer la conexión con la base de datos
+    const connection = await getConnection();
 
+    // Obtener los datos del usuario de la base de datos
+    const [rows, fields] = await connection.execute(
+      "SELECT * FROM usuarios WHERE id = ?",
+      [req.session.userId]
+    );
+
+    // Verificar si el usuario existe
+    if (rows.length > 0) {
+      const storedPassword = rows[0].contrasena;
+
+      // Verificar si la contraseña actual coincide con la almacenada en la base de datos
+      if (storedPassword === oldPassword) {
+        // Verificar si la nueva contraseña y la confirmación coinciden
+        if (newPassword === confirmPassword) {
+          // Actualizar la contraseña en la base de datos
+          await connection.execute(
+            "UPDATE usuarios SET contrasena = ? WHERE id = ?",
+            [newPassword, req.session.userId]
+          );
+
+          res.redirect("/cuenta");
+        } else {
+          res.send("La nueva contraseña y la confirmación no coinciden");
+        }
+      } else {
+        res.send("La contraseña actual es incorrecta");
+      }
+    } else {
+      res.send("Usuario no encontrado");
+    }
+
+    // Cierra la conexión con la base de datos
+    await connection.end();
+  } catch (error) {
+    console.log(error);
+    res.send("Error al cambiar la contraseña");
+  }
+})
+
+router.post("/cuenta/datos", async function(req, res, next) {
+  try {
+    // Obtén los valores enviados desde el formulario
+    const address = req.body.address;
+    const phone = req.body.phone;
+    const birthdate = req.body.birthdate;
+
+    // Establecer la conexión con la base de datos
+    const connection = await getConnection();
+
+    // Actualizar los datos adicionales en la base de datos
+    await connection.execute(
+      "UPDATE usuarios SET direccion = ?, telefono = ?, cumpleanos = ? WHERE id = ?",
+      [address, phone, birthdate, req.session.userId]
+    );
+
+    // Cierra la conexión con la base de datos
+    await connection.end();
+
+    res.redirect("/cuenta");
+  } catch (error) {
+    console.log(error);
+    res.send("Error al guardar los datos adicionales");
+  }
+});
+
+router.get("/logout", function(req, res, next) {
+  
+  // Destruir la sesión y redirigir al usuario a la página de inicio de sesión
+  req.session.destroy(function(err) {
+    if (err) {
+      console.log(err);
+    }
+    res.redirect("/login"); // Cambia "/login" por la ruta de tu página de inicio de sesión
+  });
+});
 
 // Ruta GET para la página "productos"
 router.get('/productos', async function (req, res, next) {
