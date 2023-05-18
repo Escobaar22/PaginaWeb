@@ -28,6 +28,13 @@ p {
     font-weight: bold;
 }
 
+.stock {
+    font-size: 18px;
+    font-family: "Helvetica", sans-serif;
+    font-weight: bold;
+    color: red;
+}
+
 button {
     display: block;
     padding: 15px 60px;

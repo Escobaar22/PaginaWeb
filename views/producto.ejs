@@ -26,7 +26,8 @@
                         </select>
                     </br>
                </p>
-               <button>Añadir al carrito</button>
+               <p class="stock">!QUEDAN: <%= producto.stock %>¡</p>
+               <a href="carrito"><button>Añadir al carrito</button></a>
             </div>
         <%- include('./plantilla/footer'); %>
     </div>

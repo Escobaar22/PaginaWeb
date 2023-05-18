@@ -8,35 +8,83 @@
 <body>
     <div>
         <%- include('./plantilla/header'); %>
-        <h1><%= title %></h1>
+        <h1>Mi carrito</h1>
         
         <table>
             <tr>
                 <th>Producto</th>
                 <th>Imagen</th>
                 <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Eliminar</th>
+                <th colspan="2">Precio</th>
             </tr>
+            <% productos.forEach(function(producto) { %>
             <tr>
-                <td>Camiseta</td>
-                <td><img src="images/productos/Vans1.jpg" alt="Camiseta"></td>
+                <td><%= producto.nombre %></td>
+                <td><img src="<%= producto.imagen %>" alt="<%= producto.nombre %>"></td>
                 <td>
                     <button class="decrement">-</button>
-                    <input type="number" value="1" min="1">
+                    <input type="number" value="1" min="0" class="cantidad" data-precio="<%= producto.precio %>">
                     <button class="increment">+</button>
                 </td>
-                <td>20 €</td>
-                <td><button class="eliminar">Eliminar</button></td>
+                <td class="precio"><%= producto.precio %> €</td>
             </tr>
+            <% }); %>
             <tr class="total">
                 <td colspan="3">Total</td>
-                <td colspan="2">100 €</td>
+                <td id="total" colspan="2"></td>
             </tr>
         </table>
         
-        <button>Realizar Pago</button>
+        <button id="realizarCompra" action="/carrito" method="post">Realizar Compra</button>
         <%- include('./plantilla/footer'); %>
     </div>
+
+    <script>
+        // Obtener referencias a los botones de incremento y decremento
+        var decrementButtons = document.getElementsByClassName('decrement');
+        var incrementButtons = document.getElementsByClassName('increment');
+
+        // Agregar event listeners a los botones de incremento y decremento
+        for (var i = 0; i < decrementButtons.length; i++) {
+            decrementButtons[i].addEventListener('click', function() {
+                var cantidadInput = this.parentNode.getElementsByClassName('cantidad')[0];
+                var precioElement = this.parentNode.parentNode.getElementsByClassName('precio')[0];
+                if (cantidadInput.value > 0) {
+                    cantidadInput.value = parseInt(cantidadInput.value) - 1;
+                    actualizarPrecio(cantidadInput, precioElement);
+                    actualizarPrecioTotal();
+                }
+            });
+        }
+
+        for (var i = 0; i < incrementButtons.length; i++) {
+            incrementButtons[i].addEventListener('click', function() {
+                var cantidadInput = this.parentNode.getElementsByClassName('cantidad')[0];
+                var precioElement = this.parentNode.parentNode.getElementsByClassName('precio')[0];
+                cantidadInput.value = parseInt(cantidadInput.value) + 1;
+                actualizarPrecio(cantidadInput, precioElement);
+                actualizarPrecioTotal();
+            });
+        }
+
+        // Función para actualizar el precio de un producto
+        function actualizarPrecio(cantidadInput, precioElement) {
+            var precioUnitario = parseFloat(cantidadInput.getAttribute('data-precio'));
+            var cantidad = parseInt(cantidadInput.value);
+            var precioTotal = precioUnitario * cantidad;
+            precioElement.innerText = precioTotal.toFixed(2) + ' €';
+        }
+
+        // Función para actualizar el precio total
+        function actualizarPrecioTotal() {
+            var productos = document.getElementsByClassName('precio');
+            var total = 0;
+            for (var i = 0; i < productos.length; i++) {
+                var precio = parseFloat(productos[i].innerText.replace(' €', ''));
+                total += precio;
+            }
+            document.getElementById('total').innerText = total.toFixed(2) + ' €';
+        }
+    </script>
 </body>
 </html>

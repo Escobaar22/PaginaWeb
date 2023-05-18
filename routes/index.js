@@ -332,18 +332,48 @@ router.get('/producto', async function (req, res, next) {
   }
 });
 
-
-
-
-
-
-
 router.get('/contacto', function(req, res, next) {
   res.render('contacto', { title: 'Datos de contacto' });
 });
 
-router.get('/carrito', function(req, res, next) {
-  res.render('carrito', { title: 'Carrito' });
+router.get('/carrito', async function(req, res, next) {
+  try{
+
+    const connection = await getConnection();
+
+    const [rows, fields] = await connection.execute('SELECT * FROM productos WHERE id IN (1, 10, 14)');
+
+    await connection.end();
+    res.render('carrito', { title: 'Carrito', productos: rows });
+  }
+  catch(error) {
+    console.log(error);
+    res.send("Error al obtener los productos");
+  }
 });
+
+
+
+router.post('/carrito', async function(req, res, next) {
+  const productId = req.query.id;  // Obtener el ID del producto de la solicitud POST
+
+  try {
+
+    const connection = await getConnection();
+
+    // Actualizar el stock del producto en la base de datos
+    await connection.execute('UPDATE productos SET stock = stock - 1 WHERE id = ?', [productId]);
+
+    // Renderizar la vista del carrito con el aviso correspondiente
+    res.render('carrito', { title: 'Carrito', mensaje: 'El producto se eliminó del carrito.' });
+  } catch (error) {
+    // Manejar cualquier error que haya ocurrido durante la ejecución
+    console.error(error);
+    res.send("Error al eliminar el producto del carrito.");
+  }
+});
+
+module.exports = router;
+
 
 module.exports = router;
