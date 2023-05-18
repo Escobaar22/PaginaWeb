@@ -28,8 +28,23 @@ const getConnection = async () => {
 }
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Portada' });
+router.get('/', async function (req, res, next) {
+  try{
+    //Conexión a la base de datos
+    const connection = await getConnection();
+
+    //Realizamos la consulta para que solo se nos muestre una serie de productos segun su id
+    const[rows, fields] = await connection.execute('SELECT * FROM productos WHERE id IN (7, 10, 12)');
+
+    await connection.end();
+
+
+    res.render('index', { title: 'Portada', productos: rows });
+  }
+  catch(error){
+    console.log(error);
+    res.send("Error al obtener los productos");
+  }
 });
 
 router.get("/login", function (req, res, next) {
@@ -292,7 +307,6 @@ router.post('/productos', async function (req, res, next) {
   }
 });
 
-
 router.get('/producto', async function (req, res, next) {
   const productId = req.query.id; // Obtener el ID del producto desde los parámetros de la URL
 
@@ -323,10 +337,6 @@ router.get('/producto', async function (req, res, next) {
 
 router.get('/contacto', function(req, res, next) {
   res.render('contacto', { title: 'Datos de contacto' });
-});
-
-router.get('/usuario', function(req, res, next) {
-  res.render('usuario', { title: 'Gestion de usuario' });
 });
 
 router.get('/carrito', function(req, res, next) {
