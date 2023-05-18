@@ -34,7 +34,7 @@ router.get('/', async function (req, res, next) {
     const connection = await getConnection();
 
     //Realizamos la consulta para que solo se nos muestre una serie de productos segun su id
-    const[rows, fields] = await connection.execute('SELECT * FROM productos WHERE id IN (7, 10, 12)');
+    const[rows, fields] = await connection.execute('SELECT * FROM productos WHERE id IN (8, 12, 14)');
 
     await connection.end();
 
@@ -293,6 +293,9 @@ router.post('/productos', async function (req, res, next) {
       case 'Chaquetas':
         query += " WHERE categoria = 'chaqueta'";
         break;
+      case 'Sudaderas':
+        query += " WHERE categoria = 'sudadera'";
+      break;
     }
 
     const [rows] = await connection.execute(query);

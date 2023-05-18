@@ -8,15 +8,14 @@
   <div>
     <%- include('./plantilla/header'); %>
     <main>
-        <h1>Bienvenido a Closs Clothing, una tienda con variedad y para todos.</h1>
-        <h1>Productos Destacados</h1>
+        <h1>Bienvenido a Closs Clothing, una tienda con variedad y para todos. Aqui nuestros productos destacados:</h1>
         <% productos.forEach(function(producto) { %>
         <div class="box" style="width: 18rem;">
           <img src="<%= producto.imagen %>" class="card-img-top" alt="<%= producto.nombre %>">
           <div class="box-body">
             <h5 class="box-title"><%= producto.nombre %></h5>
             <p class="box-text"><%= producto.descripcion %></p>
-            <a href="<%= producto.enlace %>" class="btn btn-primary">Ver más</a>
+            <a href="productos" class="btn btn-primary">Ver más</a>
           </div>
         </div>
         <% }); %>
